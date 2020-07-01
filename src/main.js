@@ -15,6 +15,10 @@ import {
 // 会自动的给页面的html设置font-size
 import 'amfe-flexible'
 
+// 导入样式
+import './styles/common.less'
+import './styles/iconfont.less'
+
 Vue.config.productionTip = false
 
 // 全局导入引用中间件？
