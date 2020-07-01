@@ -1,6 +1,6 @@
 <template>
   <div class="hm-header">
-    <div class="back">
+    <div class="back" @click="back">
       <span class="iconfont iconjiantou2"></span>
     </div>
     <div class="title">
@@ -11,7 +11,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    back() {
+      // this.$router.back()
+      this.$router.go(-1)
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login">
     <my-header>我是登录页面</my-header>
     <my-logo></my-logo>
     <van-form @submit="onSubmit">
@@ -15,6 +15,10 @@
         <van-button round block type="info" native-type="submit">提交</van-button>
       </div>
     </van-form>
+    <p class="tips">
+      没有账号？去
+      <router-link to="/register">注册</router-link>
+    </p>
   </div>
 </template>
 
@@ -48,6 +52,12 @@ export default {
       }
     }
   },
+  created() {
+    // 在login页面初始化时获得注册页面所传过来的参数
+    const { username, password } = this.$route.params
+    this.username = username
+    this.password = password
+  },
   methods: {
     async onSubmit() {
       // console.log('submit', values) //values为密码
@@ -70,5 +80,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+.login {
+  .tips {
+    font-size: 14px;
+    text-align: right;
+    padding-right: 20px;
+    a {
+      color: orange;
+    }
+  }
+}
 </style>
