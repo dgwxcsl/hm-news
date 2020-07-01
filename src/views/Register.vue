@@ -88,18 +88,18 @@ export default {
           // 1.地址栏直接拼接
           // `/login?username=${this.user.username}&password=${this.user.password}`
           {
-            // 2.使用query对象传参，所传参数显示在地址栏中
-            // path: '/login',
-            // query: {
-            //   username: this.user.username,
-            //   password: this.user.password
-            // }
-            // 3.使用params传参，所传参数不在地址栏中，但是path无效，需要给路径指定name并用name
-            // name: 'login',
-            // params: {
-            //   username: this.user.username,
-            //   password: this.user.password
-            // }
+            //   // 2.使用query对象传参，所传参数显示在地址栏中
+            //   // path: '/login',
+            //   // query: {
+            //   //   username: this.user.username,
+            //   //   password: this.user.password
+            //   // }
+            //   // 3.使用params传参，所传参数不在地址栏中，但是path无效，需要给路径指定name并用name
+            name: 'login',
+            params: {
+              username: this.user.username,
+              password: this.user.password
+            }
           }
         )
       } else {

@@ -55,6 +55,7 @@ export default {
   created() {
     // 在login页面初始化时获得注册页面所传过来的参数
     const { username, password } = this.$route.params
+    // const { username, password } = this.$route.query
     this.username = username
     this.password = password
   },
