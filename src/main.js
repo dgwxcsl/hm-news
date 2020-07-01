@@ -4,7 +4,7 @@ import App from './App.vue'
 
 // 全局导入
 // import Vant from 'vant'
-import 'vant/lib/index.css'// 引入vant的样式
+import 'vant/lib/index.css' // 引入vant的样式
 
 // 按需导入
 import {

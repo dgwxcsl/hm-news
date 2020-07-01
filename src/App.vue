@@ -6,7 +6,14 @@
     <van-button type="danger">默认按钮</van-button>
   </div>
 </template>
-
+<script>
+function winner (params) {
+  console.log(123)
+}
+export default {
+  winner
+}
+</script>
 <style lang="less">
 .box {
   /* width: 300px  height: 300px font-size: 75px   750px设计稿（两倍图） */
