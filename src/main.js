@@ -34,10 +34,10 @@ Vue.config.productionTip = false
 // Vue.use(Vant)
 
 // 按需导入引用中间件
-Vue.use(Button)
-Vue.use(Field)
+Vue.use(Button) // 注册全局组件<van-button></van-button>
+Vue.use(Field) // 注册全局组件<van-field></van-field>
 Vue.use(Form)
-Vue.use(Toast)
+Vue.use(Toast) // 给Vue的prototype挂载一个$toast方法
 
 // 注册成全局组件
 Vue.component('my-header', HMHeader)

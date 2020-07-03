@@ -82,6 +82,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/*
+  在定义组件的时候，如果希望样式只影响当前组件，那么需要给style标签添加`scoped`属性
+  scoped会给当前组件中所有的样式添加一个属性选择器 data-v-xxxx
+  scoped会给当前组件中所有的元素也添加这个属性  data-v-xxxx
+*/
 .login {
   .tips {
     font-size: 14px;
