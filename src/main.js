@@ -8,7 +8,18 @@ import moment from 'moment'
 import 'vant/lib/index.css' // 引入vant的样式
 
 // 按需导入
-import { Field, Button, Form, Toast } from 'vant'
+import {
+  Field,
+  Button,
+  Form,
+  Toast,
+  Dialog,
+  Uploader,
+  RadioGroup,
+  Radio,
+  Cell,
+  CellGroup
+} from 'vant'
 
 // 会自动的给页面的html设置font-size
 import 'amfe-flexible'
@@ -35,6 +46,12 @@ Vue.use(Button) // 注册全局组件<van-button></van-button>
 Vue.use(Field) // 注册全局组件<van-field></van-field>
 Vue.use(Form)
 Vue.use(Toast) // 给Vue的prototype挂载一个$toast方法
+Vue.use(Dialog)
+Vue.use(Uploader)
+Vue.use(RadioGroup)
+Vue.use(Radio)
+Vue.use(Cell)
+Vue.use(CellGroup)
 
 // 注册成全局组件
 Vue.component('my-header', HMHeader)
@@ -59,7 +76,7 @@ axios.interceptors.request.use(function(config) {
 // 添加响应拦截器
 axios.interceptors.response.use(function(res) {
   // 对响应数据做点什么
-  console.log('我拦截到了响应', res)
+  // console.log('我拦截到了响应', res)
   const { statusCode, message } = res.data
   if (statusCode === 401 && message === '用户信息验证失败') {
     // 若token由于时间问题失效或者token被篡改（用户名或者密码错误也是401）

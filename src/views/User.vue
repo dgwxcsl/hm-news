@@ -1,12 +1,15 @@
 <template>
   <div class="user">
     <div class="header">
-      <div class="avatar" @click="$router.push('/userEdit')">
+      <div class="avatar" @click="$router.push(`/userEdit`)">
         <img :src="this.$axios.defaults.baseURL + info.head_img" alt />
       </div>
       <div class="info">
-        <span class="iconfont iconxingbienv"></span>
-        <div class="name">{{ info.nickname }}</div>
+        <div class="name">
+          <span class="iconfont iconxingbienv" v-if="info.gender === 0"></span>
+          <span class="iconfont iconxingbienan" v-else></span
+          >{{ info.nickname }}
+        </div>
         <div class="time">{{ info.create_date | time }}</div>
       </div>
       <div class="arrow">
@@ -26,8 +29,11 @@
         <template>我的收藏</template>
         <template v-slot:content>文章/视频</template>
       </my-navbar>
-      <my-navbar @clickFn="clickFn">
+      <my-navbar @click="clickFn">
         <template>设置</template>
+      </my-navbar>
+      <my-navbar @click="logout">
+        <template>退出</template>
       </my-navbar>
     </div>
   </div>
@@ -38,11 +44,13 @@ export default {
   data() {
     // 接受请求回来的个人信息
     return {
-      info: {}
+      info: {},
+      userId: ''
     }
   },
   async created() {
     const userId = localStorage.getItem('userId')
+    this.userId = userId
     // const token = localStorage.getItem('token')
     const res = await this.$axios.get(
       `/user/${userId}`
@@ -71,6 +79,22 @@ export default {
   methods: {
     clickFn() {
       this.$router.push('/userEdit')
+    },
+    async logout() {
+      try {
+        await this.$dialog.confirm({
+          // 基于promise对象封装的函数，返回的结果若成功则走then,若失败则走catch
+          // 用于确认消息，包含取消和确认按钮
+          title: '退出登录',
+          message: '亲，您确认退出该系统吗？'
+        })
+        localStorage.removeItem('token')
+        localStorage.removeItem('userId')
+        this.$toast.success('退出成功')
+        this.$router.push('/login')
+      } catch {
+        this.$toast('取消退出')
+      }
     }
   }
 }

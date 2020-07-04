@@ -16,7 +16,7 @@
 export default {
   methods: {
     clickFn() {
-      this.$emit('clickFn')
+      this.$emit('click')
     }
   }
 }

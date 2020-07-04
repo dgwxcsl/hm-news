@@ -8,6 +8,11 @@ import UserEdit from '../views/UserEdit.vue'
 
 Vue.use(VueRouter)
 
+const originalPush = VueRouter.prototype.push // 点击两次相同的路由捕捉错误
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const router = new VueRouter({
   routes: [
     {
@@ -53,8 +58,3 @@ router.beforeEach(function(to, from, next) {
 })
 
 export default router
-
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push(location) {
-//   return originalPush.call(this, location).catch(err => err)
-// }
