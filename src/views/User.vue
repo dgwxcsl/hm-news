@@ -17,11 +17,11 @@
       </div>
     </div>
     <div class="nav">
-      <my-navbar>
+      <my-navbar @click="$router.push('/follow')">
         <template>我的关注</template>
         <template v-slot:content>关注的用户</template>
       </my-navbar>
-      <my-navbar>
+      <my-navbar @click="$router.push('/comment')">
         <template>我的跟帖</template>
         <template v-slot:content>跟帖/回复</template>
       </my-navbar>

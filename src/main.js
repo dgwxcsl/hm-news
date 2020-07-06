@@ -18,7 +18,8 @@ import {
   RadioGroup,
   Radio,
   Cell,
-  CellGroup
+  CellGroup,
+  List
 } from 'vant'
 
 // 会自动的给页面的html设置font-size
@@ -52,6 +53,7 @@ Vue.use(RadioGroup)
 Vue.use(Radio)
 Vue.use(Cell)
 Vue.use(CellGroup)
+Vue.use(List)
 
 // 注册成全局组件
 Vue.component('my-header', HMHeader)

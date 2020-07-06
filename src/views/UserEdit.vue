@@ -59,11 +59,28 @@
         </van-cell-group>
       </van-radio-group>
     </van-dialog>
+
+    <div class="mask" v-show="isShowMask">
+      <van-button type="primary" @click="crop">裁剪</van-button>
+      <van-button type="danger" @click="cancel">取消</van-button>
+      <vueCropper
+        ref="cropper"
+        :img="img"
+        :autoCrop="true"
+        :autoCropWidth="150"
+        :autoCropHeight="150"
+        :centerBox="true"
+      ></vueCropper>
+    </div>
   </div>
 </template>
 
 <script>
+import { VueCropper } from 'vue-cropper'
 export default {
+  components: {
+    VueCropper
+  },
   data() {
     return {
       info: '',
@@ -73,7 +90,9 @@ export default {
       password: '',
       oldpassword: '',
       showGender: false,
-      radio: ''
+      radio: '',
+      isShowMask: false,
+      img: ''
     }
   },
   async created() {
@@ -123,13 +142,53 @@ export default {
       this.editUser({ gender: this.radio })
     },
     async afterRead(file) {
-      const fd = new FormData()
-      fd.append('file', file.file)
-      const res = await this.$axios.post('/upload', fd)
-      const { statusCode, data } = res.data
-      if (statusCode === 200) {
-        this.editUser({ head_img: data.url })
-      }
+      console.log(file)
+      this.isShowMask = true
+      this.img = file.content
+      // if (file.file.size > 20 * 1024) {
+      //   this.$toast('您所上传的图片不得超过20k')
+      //   return
+      // }
+      // const isGif = file.file.type === 'image/gif'
+      // const isJPg = file.file.type === 'image/jeg'
+      // const isPng = file.file.type === 'image/png'
+
+      // if (!isGif || !isJPg || !isPng) {
+      //   this.$toast('您所上传的图片必须是gif格式或是jpg格式或是png格式')
+      //   return
+      // }
+
+      // const fd = new FormData()
+      // fd.append('file', file.file)
+      // const res = await this.$axios.post('/upload', fd)
+      // const { statusCode, data } = res.data
+      // if (statusCode === 200) {
+      //   this.editUser({ head_img: data.url })
+      // }
+    },
+    crop() {
+      // 获取截图的base64 数据
+      // this.$refs.cropper.getCropData(data => {
+      //   // do something
+      //   console.log('base64', data)
+      // })
+      // 获取截图的blob数据
+      this.$refs.cropper.getCropBlob(async blob => {
+        // do something
+        // console.log('blob', data)
+        const fd = new FormData()
+        fd.append('file', blob)
+        const res = await this.$axios.post('/upload', fd)
+        const { statusCode, data } = res.data
+        if (statusCode === 200) {
+          this.isShowMask = false
+          this.editUser({ head_img: data.url })
+        }
+      })
+    },
+    cancel() {
+      this.$toast('取消成功')
+      this.isShowMask = false
     }
   }
 }
@@ -168,5 +227,25 @@ export default {
 /deep/ .van-field__control {
   //css中深度选择器要加>>>,less中深度选择器要加/deep/,scss中要加::v-deep
   padding: 10px;
+}
+.mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  .van-button {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+  }
+  .van-button:nth-child(1) {
+    left: 0;
+  }
+
+  .van-button:nth-child(2) {
+    right: 0;
+  }
 }
 </style>

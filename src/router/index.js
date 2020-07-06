@@ -5,6 +5,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import User from '../views/User.vue'
 import UserEdit from '../views/UserEdit.vue'
+import Follow from '../views/Follow.vue'
+import Comment from '../views/Comment.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +36,16 @@ const router = new VueRouter({
       path: '/userEdit',
       name: 'userEdit',
       component: UserEdit
+    },
+    {
+      path: '/follow',
+      name: 'follow',
+      component: Follow
+    },
+    {
+      path: '/comment',
+      name: 'comment',
+      component: Comment
     }
   ]
 })
