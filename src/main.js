@@ -19,7 +19,9 @@ import {
   Radio,
   Cell,
   CellGroup,
-  List
+  List,
+  Tab,
+  Tabs
 } from 'vant'
 
 // 会自动的给页面的html设置font-size
@@ -36,6 +38,7 @@ import router from './router'
 import HMHeader from './components/HmHeader.vue'
 import HMLogo from './components/HmLogo.vue'
 import HMNavBar from './components/HmNavBar.vue'
+import HMPost from './components/HmPost.vue'
 
 Vue.config.productionTip = false
 
@@ -54,16 +57,27 @@ Vue.use(Radio)
 Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(List)
+Vue.use(Tab)
+Vue.use(Tabs)
 
 // 注册成全局组件
 Vue.component('my-header', HMHeader)
 Vue.component('my-logo', HMLogo)
 Vue.component('my-navbar', HMNavBar)
+Vue.component('hm-post', HMPost)
 
 // 把axios挂在到vue的原型
 Vue.prototype.$axios = axios
 // 配置axios的默认基准地址
 axios.defaults.baseURL = 'http://localhost:3000'
+
+Vue.prototype.$url = function(url) {
+  if (url.startsWith('http')) {
+    return url
+  } else {
+    return axios.defaults.baseURL + url
+  }
+}
 // 添加请求拦截器(在ajax请求到达服务器时会被拦截)
 axios.interceptors.request.use(function(config) {
   // 在发送请求之前做些什么

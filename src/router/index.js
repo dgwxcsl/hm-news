@@ -7,6 +7,8 @@ import User from '../views/User.vue'
 import UserEdit from '../views/UserEdit.vue'
 import Follow from '../views/Follow.vue'
 import Comment from '../views/Comment.vue'
+import Home from '../views/Home.vue'
+import Star from '../views/Star.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +48,16 @@ const router = new VueRouter({
       path: '/comment',
       name: 'comment',
       component: Comment
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/star',
+      name: 'star',
+      component: Star
     }
   ]
 })

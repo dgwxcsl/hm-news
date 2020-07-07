@@ -7,8 +7,8 @@
       <div class="info">
         <div class="name">
           <span class="iconfont iconxingbienv" v-if="info.gender === 0"></span>
-          <span class="iconfont iconxingbienan" v-else></span
-          >{{ info.nickname }}
+          <span class="iconfont iconxingbienan" v-else></span>
+          {{ info.nickname }}
         </div>
         <div class="time">{{ info.create_date | time }}</div>
       </div>
@@ -25,7 +25,7 @@
         <template>我的跟帖</template>
         <template v-slot:content>跟帖/回复</template>
       </my-navbar>
-      <my-navbar>
+      <my-navbar @click="$router.push('/star')">
         <template>我的收藏</template>
         <template v-slot:content>文章/视频</template>
       </my-navbar>
