@@ -9,6 +9,7 @@ import Follow from '../views/Follow.vue'
 import Comment from '../views/Comment.vue'
 import Home from '../views/Home.vue'
 import Star from '../views/Star.vue'
+import PostDetails from '../views/PostDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ VueRouter.prototype.push = function push(location) {
 
 const router = new VueRouter({
   routes: [
+    {
+      path: '/',
+      redirect: '/home'
+    },
     {
       path: '/login',
       name: 'login',
@@ -58,7 +63,17 @@ const router = new VueRouter({
       path: '/star',
       name: 'star',
       component: Star
+    },
+    {
+      path: '/postDetails/:id',
+      name: 'postDetails',
+      component: PostDetails
     }
+    // {
+    //   path: '/postDetails',
+    //   name: 'postDetails',
+    //   component: PostDetails
+    // }
   ]
 })
 

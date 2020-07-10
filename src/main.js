@@ -21,7 +21,8 @@ import {
   CellGroup,
   List,
   Tab,
-  Tabs
+  Tabs,
+  PullRefresh
 } from 'vant'
 
 // 会自动的给页面的html设置font-size
@@ -39,6 +40,7 @@ import HMHeader from './components/HmHeader.vue'
 import HMLogo from './components/HmLogo.vue'
 import HMNavBar from './components/HmNavBar.vue'
 import HMPost from './components/HmPost.vue'
+import HMComment from './components/HmComment.vue'
 
 Vue.config.productionTip = false
 
@@ -59,12 +61,14 @@ Vue.use(CellGroup)
 Vue.use(List)
 Vue.use(Tab)
 Vue.use(Tabs)
+Vue.use(PullRefresh)
 
 // 注册成全局组件
 Vue.component('my-header', HMHeader)
 Vue.component('my-logo', HMLogo)
 Vue.component('my-navbar', HMNavBar)
 Vue.component('hm-post', HMPost)
+Vue.component('hm-comment', HMComment)
 
 // 把axios挂在到vue的原型
 Vue.prototype.$axios = axios
@@ -106,6 +110,11 @@ axios.interceptors.response.use(function(res) {
 
 Vue.filter('time', function(input) {
   return moment(input).format('YYYY-MM-DD')
+})
+
+Vue.filter('fromNow', function(input) {
+  moment.locale('zh-CN') // 设定moment区域为中国(依赖当前环境)
+  return moment(input).fromNow()
 })
 
 new Vue({

@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="user">
-        <span class="iconfont iconwode"></span>
+        <span class="iconfont iconwode" @click="$router.push('/user')"></span>
       </div>
     </div>
     <div class="tab">
@@ -20,19 +20,19 @@
       </van-tabs>
     </div>
     <div class="posts">
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        :loading="loading"
-        :offset="10"
-        :immediate-check="false"
-        finished-text="没有更多了"
-        @load="onLoad"
-      >
-        <hm-post v-for="item in posts" :key="item.id" :post="item">
-          <template>{{item.comment_length}}</template>
-        </hm-post>
-      </van-list>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          :loading="loading"
+          :offset="10"
+          :immediate-check="false"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <hm-post v-for="item in posts" :key="item.id" :post="item"></hm-post>
+        </van-list>
+      </van-pull-refresh>
     </div>
   </div>
 </template>
@@ -47,7 +47,8 @@ export default {
       pageSize: 5,
       posts: [],
       finished: false,
-      loading: false
+      loading: false,
+      isLoading: false
     }
   },
   created() {
@@ -73,6 +74,9 @@ export default {
       })
       console.log(res)
       const { data } = res.data
+      if (this.pageIndex === 1) {
+        this.posts = []
+      }
       this.posts = [...this.posts, ...data]
       this.loading = false
       if (data.length < this.pageSize) {
@@ -83,12 +87,26 @@ export default {
       setTimeout(() => {
         console.log('onLoad事件执行了，我要请求数据了')
         this.pageIndex++
-        this.getTabList()
+        this.getPostList(this.categories[this.active].id)
       }, 2000)
+    },
+    onRefresh() {
+      this.posts = []
+      this.pageIndex = 1
+      this.finished = false
+      this.loading = true // tab栏切换的时候，需要把loading改成true,防止load事件重复的触发
+      setTimeout(() => {
+        this.getPostList(this.categories[this.active].id)
+        this.isLoading = false
+      }, 1000)
     }
   },
   watch: {
     active(value) {
+      this.posts = []
+      this.pageIndex = 1
+      this.finished = false
+      this.loading = true // tab栏切换的时候，需要把loading改成true,防止load事件重复的触发
       this.getPostList(this.categories[value].id)
     }
   }
