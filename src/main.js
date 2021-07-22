@@ -36,7 +36,7 @@ import './styles/iconfont.less'
 import router from './router'
 
 // 导入全局组件标题组件
-import HMHeader from './components/HmHeader.vue'
+import HMHeader from './components/HMHeader.vue'
 import HMLogo from './components/HmLogo.vue'
 import HMNavBar from './components/HmNavBar.vue'
 import HMPost from './components/HmPost.vue'
