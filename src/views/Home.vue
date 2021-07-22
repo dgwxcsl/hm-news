@@ -7,7 +7,7 @@
       <div class="search">
         <div class="searchson">
           <span class="iconfont iconsearch"></span>
-          <span>搜索新闻</span>
+          <span>搜索新闻闻</span>
         </div>
       </div>
       <div class="user">
